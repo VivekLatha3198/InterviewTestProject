@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "fe8631f2-df06-4f0e-b39f-58f9dc772bd6",
+		"name": "API Automation Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32850830"
+	},
+	"item": [
+		{
+			"name": "Get list of individual dog breeds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"retrieveListOfIndividualDogbreeds\",function (){\r",
+							"let jsonValues = JSON.parse(responseBody)\r",
+							"let message = jsonValues.message\r",
+							"listOfIndividualDogBreeds = [];\r",
+							"for (let eachValue in message)\r",
+							"{\r",
+							"    arrayValue = message[eachValue];\r",
+							"\r",
+							"    if (arrayValue.length <=1)\r",
+							"    {\r",
+							"        listOfIndividualDogBreeds.push(eachValue)\r",
+							"    }\r",
+							"}\r",
+							"console.log(listOfIndividualDogBreeds)\r",
+							"}\r",
+							")\r",
+							"\r",
+							"pm.test(\"Status code check\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name check\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"basset\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Body Check\", function () {\r",
+							"    pm.response.to.have.body(responseBody);\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Json Value Check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message.buhund).to.eql(['norwegian']);\r",
+							"    pm.expect(jsonData.message.bullterrier).to.eql(['staffordshire']);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"listOfMultipleDogbreeds\",function (){\r",
+							"let jsonValues = JSON.parse(responseBody)\r",
+							"let message = jsonValues.message\r",
+							"listOfMultipleDogBreeds = [];\r",
+							"for (let eachValue in message)\r",
+							"{\r",
+							"    arrayValue = message[eachValue];\r",
+							"\r",
+							"    if (arrayValue.length >= 1)\r",
+							"    {\r",
+							"        listOfMultipleDogBreeds.push(eachValue)\r",
+							"    }\r",
+							"}\r",
+							"console.log(listOfMultipleDogBreeds)\r",
+							"}\r",
+							")\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dog.ceo/api/breeds/list/all",
+					"protocol": "https",
+					"host": [
+						"dog",
+						"ceo"
+					],
+					"path": [
+						"api",
+						"breeds",
+						"list",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
